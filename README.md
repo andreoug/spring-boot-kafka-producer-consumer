@@ -4,11 +4,12 @@ This is a pilot repo, where I implemented with latest spring boot 2.5.6 and Kafk
 The use case is the simlest examle where a producer app send a string to kafka and a reducer app consumes the string.
 
 
-## Getting Started
-The easiest way to pull, deploy and run this produce-consume kafka string message 
-is through Staging environment, where only docker installation is required. 
+## 1. Getting Started
+The easiest way to pull, deploy and run this produce-consume kafka string message on your 
+laptop or any other clean system is through Staging environment, where only docker 
+installation is required. 
 
-### Working Environments
+### 1.1. Working Environments
 Currently, the working environmnets are the following.
 - Staging Environment,
 - Development Environment.
@@ -17,23 +18,23 @@ The key differences between the working environments (dev and staging) are the f
 - The containerization on staging of the app as you can figure out on [docker-compose.yml](docker-compose.yml) and [docker-compose-kafka-only.yml](docker-compose-kafka-only.yml)
 - The seperated network that is *kafka-net* network defined in [docker-compose.yml](docker-compose.yml)
 
-#### Prerequisites
+#### 1.1.1. Prerequisites
 As you can figure out in the following table, the least prerequisites to give a try to this 
 repo are with staging env. But if you have already java and maven experience, dev environment 
 is similarly easy to build and experiment.
 
+##### 1.1.1.1. Prerequisites Details
 | Framework | Staging | Development |
 | :-------------- | :----: | :-----: |
 | docker         | &checkmark;  | &checkmark;|
 | docker-compose | &checkmark;  | &checkmark; |
 | maven          |              | &checkmark; |
 | java           |              | &checkmark;|
-[comment]: <> ([Prerequisites table][prerequisites-table])
 
-#### Staging Enviroment
-Follow the steps on [Working on the Staging Env](#wotse) section.
+#### 1.1.2. Staging Environment
+Follow the steps on section [1.2. Working on the Staging Environment](#wotse).
 
-##### Versioning Details
+##### 1.1.2.1. Versioning Details
 
 | Program | Package | Version | Ruled by |
 | :---- | :------- | -------: | --------: |
@@ -47,11 +48,10 @@ Follow the steps on [Working on the Staging Env](#wotse) section.
 | lib | Spring-Kafka | - | spring-boot |
 | lib | Lombok | - | spring-boot |
 
+#### 1.1.3. Development Environment
+Follow the steps on section [1.3. Working on the Development Environment](#wotde).
 
-#### Development Environment
-Follow the steps on [Working on the Development Env](#wotde) section.
-
-##### Versioning Details
+##### 1.1.3.1 Versioning Details
 
 | Program | Package | Version | Ruled by |
 | :---- | :------- | -------: | --------: |
@@ -66,7 +66,7 @@ Follow the steps on [Working on the Development Env](#wotde) section.
 | lib | Lombok | - | spring-boot |
 
 
-### <a name="wotse">Working on the Staging Environment</a>
+### <a name="wotse">1.2. Working on the Staging Environment</a>
 
 1. Deploy the Kafka broker with Zookeeper and also producer and consumer of the app using docker-compose as follows
     ```bash
@@ -102,7 +102,7 @@ Follow the steps on [Working on the Development Env](#wotde) section.
         consumer     | 2021-12-06 10:19:25.319  INFO 1 --- [ntainer#0-0-C-1] Consumer                        : #### -> Consumed message -> test1
     ```
 
-### <a name="wotde">Working on the Development Environment</a>
+### <a name="wotde">1.3. Working on the Development Environment</a>
 
 1. Deploy the Kafka broker with Zookeeper using docker-compose as follows
 
@@ -138,7 +138,7 @@ Follow the steps on [Working on the Development Env](#wotde) section.
         2021-12-06 12:35:36.996  INFO 2227 --- [ntainer#0-0-C-1] Consumer                        : #### -> Consumed message -> test1    
     ```
 
-## Spring Boot Profiles
+## 2. Spring Boot Profiles
 Spring boot gives the option to the application to have profiles which are used to separate with components, services 
 or just java beans will be initialised at boot time. According to microservices architectural guidelines, every 
 microservice should do exactly one job and no more. Therefore, we separete the two jobs of this app into to different spring boot 
@@ -151,7 +151,7 @@ You can check yourself for the seperated profiles in [application.yml](src/main/
 source code and then check the [docker-compose.yml](docker-compose.yml) for the use of the different profiles for the 
 related containers.
 
-### Producer and Consumer for Kafka
+### 2.1. Producer and Consumer for Kafka
 
 As you can see in line 3 of [application.yml](src/main/resources/application.yml) file, if *SPRING_PROFILES_ACTIVE* is 
 not defined, the default profiles that will be initialized on spring boot are both: producer, consumer.
@@ -165,7 +165,7 @@ or
 ```bash
   mvn spring-boot:run
 ```
-### Producer to Kafka
+### 2.2. Producer to Kafka
 
 In case you want to deploy only producer spring boot profile, then we need the following two lines. The trick is to 
 define the *spring.profiles.active* in the JVM parameteres as producer.  
@@ -179,7 +179,7 @@ used in the following command:
   mvn spring-boot:run -Dspring-boot.run.profiles=producer
 ```
 
-### Consumer from Kafka
+### 2.3. Consumer from Kafka
 
 Likewise, to deploy only consumer spring boot profile, then we need the following two lines. The same trick for the JVM 
 parameters for consumer.
@@ -193,16 +193,16 @@ or likewise, use maven's spring-boot phase for consumer as we did for producer:
 ```
 
 
-## Config your kafka Docker Images on docker-compose file
+## 3. Config your kafka Docker Images on docker-compose file
 
 There are two images that most repositories are using for Kafka:
-- [Wurstmeister](https://github.com/wurstmeister/) 's images from 
+- [Wurstmeister](https://github.com/wurstmeister/kafka-docker) 's images from 
 [wurstmeister/kafka](https://hub.docker.com/r/wurstmeister/kafka) docker hub, 
 - [Bitnami](https://github.com/bitnami/bitnami-docker-kafka) 's images from 
 [bitnami/kafka](https://hub.docker.com/r/bitnami/kafka) docker hub.
 
 
-### Wurstmeister Kafka
+### 3.1. Wurstmeister Kafka
 
 ```yml
 version: '3'
@@ -221,7 +221,7 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 ```
-### Bitnami Kafka 
+### 3.2. Bitnami Kafka 
 
 [comment]: <> (todo-geand: It has not be tested in dev or staging env yet)
 ```yml

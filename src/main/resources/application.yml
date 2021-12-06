@@ -1,0 +1,38 @@
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:producer, consumer}
+
+---
+  #'consumer' profile only
+spring:
+  config:
+    activate:
+      on-profile: consumer
+  kafka:
+    template:
+      default-topic: ${KAFKA_DEFAULT_TOPIC:topic}
+    consumer:
+      bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+      group-id: group_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+---
+#'producer' profile only
+
+spring:
+  config:
+    activate:
+      on-profile: producer
+  kafka:
+    template:
+      default-topic: ${KAFKA_DEFAULT_TOPIC:topic}
+    producer:
+      bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+server:
+  port: 9000
+---

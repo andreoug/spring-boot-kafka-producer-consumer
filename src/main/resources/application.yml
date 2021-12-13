@@ -15,8 +15,7 @@ spring:
       bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
       group-id: group_id
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
 
 ---
 #'producer' profile only
@@ -30,9 +29,15 @@ spring:
       default-topic: ${KAFKA_DEFAULT_TOPIC:topic}
     producer:
       bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: message:Message, sms:Sms
 
 server:
   port: 9000
+
+springdoc:
+  api-docs:
+    path: /api-docs
+
 ---

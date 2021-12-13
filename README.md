@@ -1,7 +1,8 @@
 # Spring Boot with Kafka 
 
 This is a pilot repo, where I implemented with latest spring boot 2.5.6 and Kafka broker.
-The use case is the simlest examle where a producer app send a string to kafka and a reducer app consumes the string.
+The use case is the simplest examle where a producer app sends a string to kafka and a reducer app 
+consumes the string.
 
 
 ## 1. Getting Started
@@ -10,18 +11,19 @@ laptop or any other clean system is through Staging environment, where only dock
 installation is required. 
 
 ### 1.1. Working Environments
-Currently, the working environmnets are the following.
+Currently, the working environments are the following.
 - Staging Environment,
 - Development Environment.
 
 The key differences between the working environments (dev and staging) are the following:
-- The containerization on staging of the app as you can figure out on [docker-compose.yml](docker-compose.yml) and [docker-compose-kafka-only.yml](docker-compose-kafka-only.yml)
+- The containerization on staging of the app as you can figure out on [docker-compose.yml](docker-compose.yml) and 
+[docker-compose-kafka-only.yml](docker-compose-kafka-only.yml)
 - The seperated network that is *kafka-net* network defined in [docker-compose.yml](docker-compose.yml)
 
 #### 1.1.1. Prerequisites
 As you can figure out in the following table, the least prerequisites to give a try to this 
-repo are with staging env. But if you have already java and maven experience, dev environment 
-is similarly easy to build and experiment.
+repo are with staging environment. But if you have already java and maven experience, 
+development environment is similarly easy to build and experiment.
 
 ##### 1.1.1.1. Prerequisites Details
 | Framework | Staging | Development |
@@ -47,6 +49,7 @@ Follow the steps on section [1.2. Working on the Staging Environment](#wotse).
 | lib | Spring-Boot-Starter-Web | - | spring-boot |
 | lib | Spring-Kafka | - | spring-boot |
 | lib | Lombok | - | spring-boot |
+| lib | openapi-ui | 1.5.2 | [pom.xml](pom.xml) |
 
 #### 1.1.3. Development Environment
 Follow the steps on section [1.3. Working on the Development Environment](#wotde).
@@ -64,6 +67,7 @@ Follow the steps on section [1.3. Working on the Development Environment](#wotde
 | lib | Spring-Boot-Starter-Web | - | spring-boot |
 | lib | Spring-Kafka | - | spring-boot |
 | lib | Lombok | - | spring-boot |
+| lib | openapi-ui | 1.5.2 | [pom.xml](pom.xml) |
 
 
 ### <a name="wotse">1.2. Working on the Staging Environment</a>
@@ -141,8 +145,8 @@ Follow the steps on section [1.3. Working on the Development Environment](#wotde
 ## 2. Spring Boot Profiles
 Spring boot gives the option to the application to have profiles which are used to separate with components, services 
 or just java beans will be initialised at boot time. According to microservices architectural guidelines, every 
-microservice should do exactly one job and no more. Therefore, we separete the two jobs of this app into to different spring boot 
-profiles as it is listed below. 
+microservice should do exactly one job and no more. Therefore, we separete the two jobs of this app into to different 
+spring boot profiles as it is listed below. 
 
 - producer
 - consumer
@@ -255,3 +259,8 @@ volumes:
     driver: local
 ```
 
+## 4. OpenAPI Definition
+
+In onder to check this app's API calls, which are controlled by *producer* profile, you can check [swagger-ui](localhost:9000//swagger-ui.html).
+
+The [api-docs](http://localhost:9000//api-docs) are also available. 

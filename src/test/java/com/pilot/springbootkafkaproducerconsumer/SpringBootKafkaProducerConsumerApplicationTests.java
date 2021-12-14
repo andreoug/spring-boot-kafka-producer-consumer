@@ -1,10 +1,10 @@
-package com.pilot.kafka.prodconc;
+package com.pilot.springbootkafkaproducerconsumer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class ApplicationTests {
+public class SpringBootKafkaProducerConsumerApplicationTests {
 
 	@Test
 	public void contextLoads() {

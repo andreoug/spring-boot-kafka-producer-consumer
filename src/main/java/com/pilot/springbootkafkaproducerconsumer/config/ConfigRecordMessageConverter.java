@@ -1,7 +1,7 @@
-package com.pilot.kafka.prodconc.config;
+package com.pilot.springbootkafkaproducerconsumer.config;
 
-import com.pilot.kafka.prodconc.model.Message;
-import com.pilot.kafka.prodconc.model.Sms;
+import com.pilot.springbootkafkaproducerconsumer.model.Message;
+import com.pilot.springbootkafkaproducerconsumer.model.Sms;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -25,7 +25,7 @@ public class ConfigRecordMessageConverter {
         ByteArrayJsonMessageConverter converter = new ByteArrayJsonMessageConverter();
         DefaultJackson2JavaTypeMapper typeMapper = new DefaultJackson2JavaTypeMapper();
         typeMapper.setTypePrecedence(Jackson2JavaTypeMapper.TypePrecedence.TYPE_ID);
-        typeMapper.addTrustedPackages("com.pilot.kafka.prodconc.model");
+        typeMapper.addTrustedPackages("com.pilot.springbootkafkaproducerconsumer.model");
         Map<String, Class<?>> mappings = new HashMap<>();
         mappings.put("message", Message.class);
         mappings.put("sms", Sms.class);

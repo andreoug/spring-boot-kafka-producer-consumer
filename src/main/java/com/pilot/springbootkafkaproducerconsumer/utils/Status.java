@@ -1,4 +1,4 @@
-package com.pilot.kafka.prodconc.utils;
+package com.pilot.springbootkafkaproducerconsumer.utils;
 
 /**
  * Created by gandreou on 14/11/2021.

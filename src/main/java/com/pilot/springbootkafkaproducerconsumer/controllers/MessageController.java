@@ -1,4 +1,4 @@
-package com.pilot.kafka.prodconc.controllers;
+package com.pilot.springbootkafkaproducerconsumer.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.pilot.kafka.prodconc.Producer;
+import com.pilot.springbootkafkaproducerconsumer.Producer;
 
 @RestController
 @RequestMapping(value = "/kafka")

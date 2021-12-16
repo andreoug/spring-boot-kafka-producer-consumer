@@ -1,7 +1,7 @@
-package com.pilot.kafka.prodconc;
+package com.pilot.springbootkafkaproducerconsumer;
 
-import com.pilot.kafka.prodconc.model.Message;
-import com.pilot.kafka.prodconc.model.Sms;
+import com.pilot.springbootkafkaproducerconsumer.model.Message;
+import com.pilot.springbootkafkaproducerconsumer.model.Sms;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

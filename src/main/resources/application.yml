@@ -31,7 +31,7 @@ spring:
       bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: message:Message, sms:Sms
+        spring.json.type.mapping: message:com.pilot.kafka.prodconc.model.Message, sms:com.pilot.kafka.prodconc.model.Sms
 
 server:
   port: 9000

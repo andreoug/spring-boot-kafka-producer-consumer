@@ -1,4 +1,4 @@
-package com.pilot.kafkac;
+package com.pilot.kafka.prodconc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,8 @@
 # Spring Boot with Kafka 
 
 This is a pilot repo, where I implemented with latest spring boot 2.5.6 and Kafka broker.
-The use case is the simlest examle where a producer app send a string to kafka and a reducer app consumes the string.
+The use case is the simplest examle where a producer app sends a string to kafka and a reducer app 
+consumes the string.
 
 
 ## 1. Getting Started
@@ -10,18 +11,19 @@ laptop or any other clean system is through Staging environment, where only dock
 installation is required. 
 
 ### 1.1. Working Environments
-Currently, the working environmnets are the following.
+Currently, the working environments are the following.
 - Staging Environment,
 - Development Environment.
 
 The key differences between the working environments (dev and staging) are the following:
-- The containerization on staging of the app as you can figure out on [docker-compose.yml](docker-compose.yml) and [docker-compose-kafka-only.yml](docker-compose-kafka-only.yml)
+- The containerization on staging of the app as you can figure out on [docker-compose.yml](docker-compose.yml) and 
+[docker-compose-kafka-only.yml](docker-compose-kafka-only.yml)
 - The seperated network that is *kafka-net* network defined in [docker-compose.yml](docker-compose.yml)
 
 #### 1.1.1. Prerequisites
 As you can figure out in the following table, the least prerequisites to give a try to this 
-repo are with staging env. But if you have already java and maven experience, dev environment 
-is similarly easy to build and experiment.
+repo are with staging environment. But if you have already java and maven experience, 
+development environment is similarly easy to build and experiment.
 
 ##### 1.1.1.1. Prerequisites Details
 | Framework | Staging | Development |
@@ -47,6 +49,7 @@ Follow the steps on section [1.2. Working on the Staging Environment](#wotse).
 | lib | Spring-Boot-Starter-Web | - | spring-boot |
 | lib | Spring-Kafka | - | spring-boot |
 | lib | Lombok | - | spring-boot |
+| lib | openapi-ui | 1.5.2 | [pom.xml](pom.xml) |
 
 #### 1.1.3. Development Environment
 Follow the steps on section [1.3. Working on the Development Environment](#wotde).
@@ -64,6 +67,7 @@ Follow the steps on section [1.3. Working on the Development Environment](#wotde
 | lib | Spring-Boot-Starter-Web | - | spring-boot |
 | lib | Spring-Kafka | - | spring-boot |
 | lib | Lombok | - | spring-boot |
+| lib | openapi-ui | 1.5.2 | [pom.xml](pom.xml) |
 
 
 ### <a name="wotse">1.2. Working on the Staging Environment</a>
@@ -81,13 +85,13 @@ Follow the steps on section [1.3. Working on the Development Environment](#wotde
     ```bash
         $ docker-compose logs producer
         ...
-        producer     | 2021-12-06 10:19:23.994  INFO 1 --- [nio-9000-exec-1] Producer                        : #### -> Producing message -> test1
-        producer     | 2021-12-06 10:19:24.055  INFO 1 --- [nio-9000-exec-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values:
+        producer     | 2021-12-16 10:40:43.539  INFO 1 --- [nio-9000-exec-1] com.pilot.kafkac.Producer                : #~#: Producing message -> Message(id=59969dc0, sms=Sms(body=test1, timestamp=2021-12-16T10:40:43.538), created=2021-12-16T10:40:43.539, updated=2021-12-16T10:40:43.539, status=CREATED)
+        producer     | 2021-12-16 10:40:43.601  INFO 1 --- [nio-9000-exec-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values:
         ...
-        producer     | 2021-12-06 10:19:24.308  INFO 1 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.7.1
-        producer     | 2021-12-06 10:19:24.311  INFO 1 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 61dbce85d0d41457
-        producer     | 2021-12-06 10:19:24.311  INFO 1 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1638785964304
-        producer     | 2021-12-06 10:19:25.131  INFO 1 --- [ad | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Cluster ID: tfXKK9BhR_KqN7PfP18kHw
+        producer     | 2021-12-16 10:40:43.976  INFO 1 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.7.1
+        producer     | 2021-12-16 10:40:43.979  INFO 1 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 61dbce85d0d41457
+        producer     | 2021-12-16 10:40:43.980  INFO 1 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1639651243969
+        producer     | 2021-12-16 10:40:44.645  INFO 1 --- [ad | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Cluster ID: EK6fPBymTZaLS-e-JdoS4w
     ```
 
 4. Check the logs from reducer to see the consumed message through docker-compose logs
@@ -95,11 +99,11 @@ Follow the steps on section [1.3. Working on the Development Environment](#wotde
     ```bash
         $ docker-compose logs consumer
         ...
-        consumer     | 2021-12-06 10:19:22.987  INFO 1 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-group_id-1, groupId=group_id] Adding newly assigned partitions: messages-0
-        consumer     | 2021-12-06 10:19:23.029  INFO 1 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-group_id-1, groupId=group_id] Found no committed offset for partition messages-0
-        consumer     | 2021-12-06 10:19:23.068  INFO 1 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-group_id-1, groupId=group_id] Resetting offset for partition messages-0 to position FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[kafka:9092 (id: 1001 rack: null)], epoch=0}}.
-        consumer     | 2021-12-06 10:19:23.071  INFO 1 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : group_id: partitions assigned: [messages-0]
-        consumer     | 2021-12-06 10:19:25.319  INFO 1 --- [ntainer#0-0-C-1] Consumer                        : #### -> Consumed message -> test1
+        consumer     | 2021-12-16 10:40:40.436  INFO 1 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-group_id-1, groupId=group_id] Adding newly assigned partitions: messages-0
+        consumer     | 2021-12-16 10:40:40.474  INFO 1 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-group_id-1, groupId=group_id] Found no committed offset for partition messages-0
+        consumer     | 2021-12-16 10:40:40.506  INFO 1 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-group_id-1, groupId=group_id] Resetting offset for partition messages-0 to position FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[kafka:9092 (id: 1001 rack: null)], epoch=0}}.
+        consumer     | 2021-12-16 10:40:40.509  INFO 1 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : group_id: partitions assigned: [messages-0]
+        consumer     | 2021-12-16 10:40:45.071  INFO 1 --- [ntainer#0-0-C-1] com.pilot.kafkac.Consumer                : #~#: Consumed message -> Message(id=59969dc0, sms=Sms(body=test1, timestamp=2021-12-16T10:40:43), created=2021-12-16T10:40:43, updated=2021-12-16T10:40:43, status=CREATED)
     ```
 
 ### <a name="wotde">1.3. Working on the Development Environment</a>
@@ -128,21 +132,21 @@ Follow the steps on section [1.3. Working on the Development Environment](#wotde
 
     ```bash
         ...
-        2021-12-06 12:35:36.882  INFO 2227 --- [nio-9000-exec-1] Producer                        : #### -> Producing message -> test1
-        2021-12-06 12:35:36.888  INFO 2227 --- [nio-9000-exec-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+        2021-12-16 13:12:56.989  INFO 47344 --- [nio-9000-exec-1] com.pilot.kafka.prodconc.Producer        : #~#: Producing message -> Message(id=30dce169, sms=Sms(body=test1, timestamp=2021-12-16T13:12:56.988), created=2021-12-16T13:12:56.988, updated=2021-12-16T13:12:56.988, status=CREATED)
+        2021-12-16 13:12:56.993  INFO 47344 --- [nio-9000-exec-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values:
         ...
-        2021-12-06 12:35:36.906  INFO 2227 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.7.1
-        2021-12-06 12:35:36.906  INFO 2227 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 61dbce85d0d41457
-        2021-12-06 12:35:36.906  INFO 2227 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1638786936905
-        2021-12-06 12:35:36.922  INFO 2227 --- [ad | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Cluster ID: PCmlanjDS6-htUVSNPKyGg
-        2021-12-06 12:35:36.996  INFO 2227 --- [ntainer#0-0-C-1] Consumer                        : #### -> Consumed message -> test1    
+        2021-12-16 13:12:57.009  INFO 47344 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.7.1
+        2021-12-16 13:12:57.009  INFO 47344 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 61dbce85d0d41457
+        2021-12-16 13:12:57.009  INFO 47344 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1639653177008
+        2021-12-16 13:12:57.021  INFO 47344 --- [ad | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Cluster ID: kSxJW162RfiitJjeGfqr7A
+        2021-12-16 13:12:57.110  INFO 47344 --- [ntainer#0-0-C-1] com.pilot.kafka.prodconc.Consumer        : #~#: Consumed message -> Message(id=30dce169, sms=Sms(body=test1, timestamp=2021-12-16T13:12:56), created=2021-12-16T13:12:56, updated=2021-12-16T13:12:56, status=CREATED)
     ```
 
 ## 2. Spring Boot Profiles
 Spring boot gives the option to the application to have profiles which are used to separate with components, services 
 or just java beans will be initialised at boot time. According to microservices architectural guidelines, every 
-microservice should do exactly one job and no more. Therefore, we separete the two jobs of this app into to different spring boot 
-profiles as it is listed below. 
+microservice should do exactly one job and no more. Therefore, we separete the two jobs of this app into to different 
+spring boot profiles as it is listed below. 
 
 - producer
 - consumer
@@ -255,3 +259,8 @@ volumes:
     driver: local
 ```
 
+## 4. OpenAPI Definition
+
+In onder to check this app's API calls, which are controlled by *producer* profile, you can check [swagger-ui](localhost:9000//swagger-ui.html).
+
+The [api-docs](http://localhost:9000//api-docs) are also available. 

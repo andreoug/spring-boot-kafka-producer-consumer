@@ -1,5 +1,7 @@
-package com.pilot.kafkac;
+package com.pilot.kafka.prodconc;
 
+import com.pilot.kafka.prodconc.model.Message;
+import com.pilot.kafka.prodconc.model.Sms;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,10 +18,12 @@ public class Producer {
     private String topic;
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<Object, Object> template;
 
     public void send(String message) {
-        log.info(String.format("#~#: Producing message -> %s", message));
-        this.kafkaTemplate.send(topic, message);
+        Message messageObj = new Message(new Sms(message));
+        log.info(String.format("#~#: Producing message -> %s", messageObj));
+        this.template.send(topic, messageObj );
     }
+
 }

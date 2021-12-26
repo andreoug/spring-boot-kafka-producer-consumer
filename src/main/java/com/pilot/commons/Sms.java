@@ -1,4 +1,4 @@
-package com.pilot.springbootkafkaproducerconsumer.model;
+package com.pilot.commons;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

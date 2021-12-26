@@ -1,7 +1,7 @@
 package com.pilot.springbootkafkaproducerconsumer;
 
-import com.pilot.springbootkafkaproducerconsumer.model.Message;
-import com.pilot.springbootkafkaproducerconsumer.model.Sms;
+import com.pilot.commons.Message;
+import com.pilot.commons.Sms;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,10 +20,10 @@ public class Producer {
     @Autowired
     private KafkaTemplate<Object, Object> template;
 
-    public void send(String message) {
-        Message messageObj = new Message(new Sms(message));
-        log.info(String.format("#~#: Producing message -> %s", messageObj));
-        this.template.send(topic, messageObj );
+    public void send(String m) {
+        Message message = new Message(new Sms(m));
+        log.info(String.format("#~#: Producing message -> %s", message));
+        this.template.send(topic, message );
     }
 
 }

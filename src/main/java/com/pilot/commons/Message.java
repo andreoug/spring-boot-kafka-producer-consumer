@@ -1,9 +1,8 @@
-package com.pilot.springbootkafkaproducerconsumer.model;
+package com.pilot.commons;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.pilot.springbootkafkaproducerconsumer.utils.Status;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

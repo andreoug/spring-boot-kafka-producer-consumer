@@ -1,8 +1,8 @@
 # Spring Boot with Kafka 
 
 This is a pilot repo, where I implemented with latest spring boot 2.5.6 and Kafka broker.
-The use case is the simplest examle where a producer app sends a string to kafka and a reducer app 
-consumes the string.
+The use case is the simplest example where a producer app sends an Object to kafka and a reducer app 
+consumes the Object.
 
 
 ## 1. Getting Started
@@ -145,7 +145,7 @@ Follow the steps on section [1.3. Working on the Development Environment](#wotde
 ## 2. Spring Boot Profiles
 Spring boot gives the option to the application to have profiles which are used to separate with components, services 
 or just java beans will be initialised at boot time. According to microservices architectural guidelines, every 
-microservice should do exactly one job and no more. Therefore, we separete the two jobs of this app into to different 
+microservice should do exactly one job and no more. Therefore, we separate the two jobs of this app into to different 
 spring boot profiles as it is listed below. 
 
 - producer
@@ -172,12 +172,12 @@ or
 ### 2.2. Producer to Kafka
 
 In case you want to deploy only producer spring boot profile, then we need the following two lines. The trick is to 
-define the *spring.profiles.active* in the JVM parameteres as producer.  
+define the *spring.profiles.active* in the JVM parameters as producer.  
 ```bash
   mvn clean package
   java -Dspring.profiles.active=producer -jar target/*.jar
 ```
-or you can use maven's spring-boot phase to pass the profiles's parameter throught *spring-boot.run.profiles* as it is 
+or you can use maven's spring-boot phase to pass the profiles's parameter through *spring-boot.run.profiles* as it is 
 used in the following command: 
 ```bash
   mvn spring-boot:run -Dspring-boot.run.profiles=producer
@@ -261,7 +261,7 @@ volumes:
 
 ## 4. OpenAPI Definition
 
-In onder to check this app's API calls, which are controlled by *producer* profile, you can check [swagger-ui](localhost:9000//swagger-ui.html).
+In onder to check this app's API calls, which are controlled by *producer* profile, you can check [swagger-ui](http://localhost:9000//swagger-ui.html).
 
 The [api-docs](http://localhost:9000//api-docs) are also available.
 

@@ -1,4 +1,4 @@
-package com.pilot.springbootkafkaproducerconsumer.utils;
+package com.pilot.commons;
 
 /**
  * Created by gandreou on 14/11/2021.

@@ -1,6 +1,6 @@
 package com.pilot.springbootkafkaproducerconsumer;
 
-import com.pilot.springbootkafkaproducerconsumer.model.Message;
+import com.pilot.commons.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;

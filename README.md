@@ -394,5 +394,5 @@ In onder to check this app's API calls, which are controlled by *producer* profi
 
 The [api-docs](http://localhost:9000/api-docs) are also available.
 
-## 5. Read More
+## 6. Read More
 You might be interested to check the [Common HowTo's](docs/how-to.md).

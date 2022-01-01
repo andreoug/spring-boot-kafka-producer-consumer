@@ -1,6 +1,6 @@
 package com.pilot.springbootkafkaproducerconsumer;
 
-import com.pilot.commons.Message;
+import com.pilot.commons.Action;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -16,7 +16,7 @@ public class Consumer {
     @KafkaListener(
             topics = "${spring.kafka.template.default-topic}",
             groupId = "${spring.kafka.consumer.group-id}")
-    public void consume(Message message) throws IOException {
-        log.info(String.format("#~#: Consumed message -> %s", message));
+    public void consume(Action action) throws IOException {
+        log.info(String.format("#~#: Consumed action -> %s", action));
     }
 }

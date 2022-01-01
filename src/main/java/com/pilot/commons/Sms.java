@@ -20,6 +20,8 @@ import java.util.Objects;
 @NoArgsConstructor
 public class Sms {
     String body;
+    String sender;
+    String receiver;
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime timestamp;

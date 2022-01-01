@@ -1,0 +1,17 @@
+@startuml
+
+title SMS Delivery Sequence Diagram
+
+actor "Sender" as S
+participant "Producer" as P
+participant "Kafka Broker" as B
+participant "Consumer" as C
+actor "Receiver" as R
+
+
+== Send SMS ==
+S -> P: send SmsRequest
+P -> B: send Action with Sms
+S <- P: return SmsResponse
+B -> C: consume Action
+@enduml

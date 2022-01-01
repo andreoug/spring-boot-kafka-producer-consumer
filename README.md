@@ -204,7 +204,7 @@ define the *spring.profiles.active* in the JVM parameters as producer.
   mvn clean package
   java -Dspring.profiles.active=producer -jar target/*.jar
 ```
-or you can use maven's spring-boot phase to pass the profiles's parameter through *spring-boot.run.profiles* as it is 
+or you can use maven's spring-boot phase to pass the profiles parameter through *spring-boot.run.profiles* as it is 
 used in the following command: 
 ```bash
   mvn spring-boot:run -Dspring-boot.run.profiles=producer
@@ -226,7 +226,7 @@ or likewise, use maven's spring-boot phase for consumer as we did for producer:
 
 ## 3. Config your kafka Docker Images on docker-compose file
 
-There are three images that most github's repositories are using for Kafka brokers in docker-compose file, as it is 
+There are three images that most GitHub's repositories are using for Kafka brokers in docker-compose file, as it is 
 shown in the following yml examples:
 - [Wurstmeister](https://github.com/wurstmeister/kafka-docker) images from 
 [wurstmeister/kafka](https://hub.docker.com/r/wurstmeister/kafka) docker hub, 

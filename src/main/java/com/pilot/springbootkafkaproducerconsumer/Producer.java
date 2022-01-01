@@ -1,6 +1,6 @@
 package com.pilot.springbootkafkaproducerconsumer;
 
-import com.pilot.commons.Message;
+import com.pilot.commons.Action;
 import com.pilot.commons.Sms;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,9 @@ public class Producer {
     @Autowired
     private KafkaTemplate<Object, Object> template;
 
-    public void send(String m) {
-        Message message = new Message(new Sms(m));
-        log.info(String.format("#~#: Producing message -> %s", message));
-        this.template.send(topic, message );
+    public void send(Sms sms) {
+        Action action = new Action(sms);
+        log.info(String.format("#~#: Producing action -> %s", action));
+        this.template.send(topic, action );
     }
-
 }

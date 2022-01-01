@@ -151,3 +151,11 @@ Or use your browser at [start.spring.io](https://start.spring.io/)
     [INFO] Finished at: 2021-12-16T14:49:29+02:00
     [INFO] ------------------------------------------------------------------------
 ```
+
+## One-liner for cleaning docker containers and their images
+In the following command, *docker-compose* updeploy the containers, *docker rmi* remove app's image, and finally the 
+last part *prune*, in other words removes, all the available containers.
+
+```bash
+    docker-compose down && docker rmi app && docker container prune
+```

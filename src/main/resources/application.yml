@@ -17,7 +17,7 @@ spring:
       auto-offset-reset: earliest
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring.json.type.mapping: message:com.pilot.commons.Message, sms:com.pilot.commons.Sms
+        spring.json.type.mapping: message:com.pilot.commons.Action, sms:com.pilot.commons.Sms
 
 ---
 #'producer' profile only
@@ -33,7 +33,7 @@ spring:
       bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: message:com.pilot.commons.Message, sms:com.pilot.commons.Sms
+        spring.json.type.mapping: message:com.pilot.commons.Action, sms:com.pilot.commons.Sms
 
 server:
   port: 9000

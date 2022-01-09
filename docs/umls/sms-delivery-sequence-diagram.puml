@@ -14,4 +14,10 @@ S -> P: send SmsRequest
 P -> B: send Action with Sms
 S <- P: return SmsResponse
 B -> C: consume Action
+
+== Send SMS Rule ==
+S -> P: send SmsRuleRequest
+P -> B: send Action with SmsRule
+S <- P: return SmsRuleResponse
+B -> C: consume Action
 @enduml

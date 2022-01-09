@@ -1,9 +1,12 @@
 package com.pilot.springbootkafkaproducerconsumer.service;
 
 import com.pilot.commons.Sms;
+import com.pilot.commons.SmsRule;
 import com.pilot.springbootkafkaproducerconsumer.Producer;
 import com.pilot.springbootkafkaproducerconsumer.web.SmsRequest;
 import com.pilot.springbootkafkaproducerconsumer.web.SmsResponse;
+import com.pilot.springbootkafkaproducerconsumer.web.SmsRuleRequest;
+import com.pilot.springbootkafkaproducerconsumer.web.SmsRuleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -25,5 +28,12 @@ public class MesssageService {
         producer.send(sms);
         return new SmsResponse(200,null,
                 request.getSender(), request.getReceiver());
+    }
+
+    public SmsRuleResponse send(SmsRuleRequest request) {
+        SmsRule smsRule = new SmsRule(request.getVerb(),request.getAllSenders(),request.getReceiver());
+        producer.send(smsRule);
+        return new SmsRuleResponse(200,null, request.getVerb(),
+                request.getAllSenders(), request.getReceiver());
     }
 }

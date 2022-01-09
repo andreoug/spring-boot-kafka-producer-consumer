@@ -11,13 +11,15 @@ spring:
   kafka:
     template:
       default-topic: ${KAFKA_DEFAULT_TOPIC:topic}
+      topic:  ${KAFKA_TOPIC:rules.topic}
     consumer:
       bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
       group-id: group_id
       auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring.json.type.mapping: message:com.pilot.commons.Action, sms:com.pilot.commons.Sms
+        spring.json.type.mapping: action:com.pilot.commons.Action, sms:com.pilot.commons.Sms, smsRule:com.pilot.commons.SmsRule
 
 ---
 #'producer' profile only
@@ -29,11 +31,13 @@ spring:
   kafka:
     template:
       default-topic: ${KAFKA_DEFAULT_TOPIC:topic}
+      topic:  ${KAFKA_TOPIC:rules.topic}
     producer:
       bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: message:com.pilot.commons.Action, sms:com.pilot.commons.Sms
+        spring.json.type.mapping: action:com.pilot.commons.Action, sms:com.pilot.commons.Sms, smsRule:com.pilot.commons.SmsRule
 
 server:
   port: 9000

@@ -17,20 +17,27 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Action {
-    String id;
-    Sms sms;
+    private String id;
+    private Sms sms;
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-    LocalDateTime created;
+    private LocalDateTime created;
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     LocalDateTime updated;
-    String status;
+    private String status;
+    private SmsRule smsRule;
+
     public Action(Sms sms) {
         this.id = UUID.randomUUID().toString().split("-")[0];
         this.sms = sms;
         this.created = LocalDateTime.now();
         this.updated = this.created;
         this.status = Status.CREATED.toString();
+    }
+
+    public Action(SmsRule smsRule) {
+        this.id = UUID.randomUUID().toString().split("-")[0];
+        this.smsRule = smsRule;
     }
 }

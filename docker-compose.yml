@@ -36,6 +36,7 @@ services:
       SPRING_PROFILES_ACTIVE: producer
       KAFKA_SERVERS: "kafka:9092"
       KAFKA_DEFAULT_TOPIC: messages
+      KAFKA_TOPIC: rules
   consumer:
     container_name: consumer
     image: app
@@ -48,3 +49,4 @@ services:
       SPRING_PROFILES_ACTIVE: consumer
       KAFKA_SERVERS: "kafka:9092"
       KAFKA_DEFAULT_TOPIC: messages
+      KAFKA_TOPIC: rules

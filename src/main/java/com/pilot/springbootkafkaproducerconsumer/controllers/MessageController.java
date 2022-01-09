@@ -3,6 +3,8 @@ package com.pilot.springbootkafkaproducerconsumer.controllers;
 import com.pilot.springbootkafkaproducerconsumer.service.MesssageService;
 import com.pilot.springbootkafkaproducerconsumer.web.SmsRequest;
 import com.pilot.springbootkafkaproducerconsumer.web.SmsResponse;
+import com.pilot.springbootkafkaproducerconsumer.web.SmsRuleRequest;
+import com.pilot.springbootkafkaproducerconsumer.web.SmsRuleResponse;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,12 @@ public class MessageController {
     }
 
     @PostMapping("/send-sms")
-    public ResponseEntity<SmsResponse> withdraw(@RequestBody SmsRequest request) {
+    public ResponseEntity<SmsResponse> sendSms(@RequestBody SmsRequest request) {
+        return new ResponseEntity<>(messsageService.send(request), HttpStatus.OK);
+    }
+
+    @PostMapping("/send-rule")
+    public ResponseEntity<SmsRuleResponse> sendSmsRule(@RequestBody SmsRuleRequest request) {
         return new ResponseEntity<>(messsageService.send(request), HttpStatus.OK);
     }
 

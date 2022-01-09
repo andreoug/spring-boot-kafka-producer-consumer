@@ -19,4 +19,11 @@ public class Consumer {
     public void consume(Action action) throws IOException {
         log.info(String.format("#~#: Consumed action -> %s", action));
     }
+
+    @KafkaListener(
+            topics = "${spring.kafka.template.topic}",
+            groupId = "${spring.kafka.consumer.group-id}")
+    public void consumeRules(Action action) throws IOException {
+        log.info(String.format("#~#: Consumed action -> %s", action));
+    }
 }

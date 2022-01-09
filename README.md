@@ -15,13 +15,24 @@ be used as a working example app or a starting point for any further plannings a
 While explaining the following activity diagram, a *Sender* sends a request to a web API to post a message Body 
 to a *Receiver*. The API call triggers the *Producer* to send an *Action* object containing the SMS to kafka 
 brokers and the *Consumer* reduces from Kafka the action to delegate the SMS. The delegation, for the time being, 
-is just a log prompt on the consumer. 
+is just a log prompt on the consumer. Moreover, a *Serder* sends a request to the web API to post a SMS rule. For the 
+sake of completion, in this use case we consume the SMS rule and this is it. 
+
+As you will figure out in a future use case of another repo, where these SMS rules are 
+going to be used in KTables format from Kafka Streams Binder to filter the incoming messages to Kafka broker's. 
+[Spring Kafka Steams and Spring Kafka Streams](https://spring.io/blog/2018/04/19/kafka-streams-and-spring-cloud-stream) 
+do no belong not in this repo, instead we are working only on [Spring Kafka](https://spring.io/projects/spring-kafka) 
+for the development of Kafka-based messaging solutions in order to only produce and consume objects.   
 
 ![Activity Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/andreoug/spring-boot-kafka-producer-consumer/main/docs/umls/sms-delivery-sequence-diagram.puml)
 
 The *producer* and the *consumer* are two Spring profiles loaded on this application as we will 
 explain later on the section about [Spring Boot Profiles](#sbp).
 
+## Use Cases
+In this repo we describe and implement the use cases of an action delivery of a SMS and a SMS Rule as follows: 
+- Sender forwards a SMS to a Receiver
+- Sender forwards a SMS Rule to the Broker
 
 ## <a name="gs"> 1. Getting Started</a>
 The easiest way to pull, deploy and run this produce-consume kafka string message on your 
@@ -101,7 +112,7 @@ Follow the steps on section about [Working on the Development Environment](#wotd
     ```bash
       curl -X POST "http://localhost:9000/kafka/send-sms" -H  "accept: */*" \
       -H  "Content-Type: application/json" \
-      -d "{\"body\":\"string\",\"sender\":\"0123456789\",\"receiver\":\"0123456789\"}"
+      -d "{\"body\":\"string\",\"sender\":\"0000000000\",\"receiver\":\"0123456789\"}" 
     ```
 
 4. Check the logs from producer through docker-compose logs
@@ -109,9 +120,8 @@ Follow the steps on section about [Working on the Development Environment](#wotd
     ```bash
         $ docker-compose logs producer
         ...
-        producer     | 2021-12-31 16:04:00.794  INFO 1 --- [nio-9000-exec-1] c.p.s.Producer                           : #~#: Producing action -> Action(id=7db7ea28, sms=Sms(body=string, sender=0123456789, receiver=0123456789, timestamp=2021-12-31T16:04:00.788), created=2021-12-31T16:04:00.793, updated=2021-12-31T16:04:00.793, status=CREATED)
+        producer     | 2021-12-31 16:04:00.794  INFO 1 --- [nio-9000-exec-1] c.p.s.Producer                           : #~#: Producing (key: 0123456789),  action -> Action(id=7db7ea28, sms=Sms(body=string, sender=0000000000, receiver=0123456789, timestamp=2021-12-31T16:04:00.788), created=2021-12-31T16:04:00.793, updated=2021-12-31T16:04:00.793, status=CREATED)
         producer     | 2021-12-31 16:04:00.952  INFO 1 --- [nio-9000-exec-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values:
-
         ...
         producer     | 2021-12-31 16:04:01.363  INFO 1 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.7.1
         producer     | 2021-12-31 16:04:01.370  INFO 1 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 61dbce85d0d41457
@@ -128,7 +138,7 @@ Follow the steps on section about [Working on the Development Environment](#wotd
         consumer     | 2021-12-31 16:03:51.986  INFO 1 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-group_id-1, groupId=group_id] Found no committed offset for partition messages-0
         consumer     | 2021-12-31 16:03:52.026  INFO 1 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-group_id-1, groupId=group_id] Resetting offset for partition messages-0 to position FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[kafka:9092 (id: 1001 rack: null)], epoch=0}}.
         consumer     | 2021-12-31 16:03:52.028  INFO 1 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : group_id: partitions assigned: [messages-0]
-        consumer     | 2021-12-31 16:04:03.175  INFO 1 --- [ntainer#0-0-C-1] c.p.s.Consumer                           : #~#: Consumed action -> Action(id=7db7ea28, sms=Sms(body=string, sender=0123456789, receiver=0123456789, timestamp=2021-12-31T16:04), created=2021-12-31T16:04, updated=2021-12-31T16:04, status=CREATED)   
+        consumer     | 2021-12-31 16:04:03.175  INFO 1 --- [ntainer#0-0-C-1] c.p.s.Consumer                           : #~#: Consumed action -> Action(id=7db7ea28, sms=Sms(body=string, sender=0000000000, receiver=0123456789, timestamp=2021-12-31T16:04), created=2021-12-31T16:04, updated=2021-12-31T16:04, status=CREATED)   
     ```
 
 ### <a name="wotde">1.3. Working on the Development Environment</a>
@@ -152,21 +162,21 @@ Follow the steps on section about [Working on the Development Environment](#wotd
 ```bash
   curl -X POST "http://localhost:9000/kafka/send-sms" -H  "accept: */*" \
   -H  "Content-Type: application/json" \
-  -d "{\"body\":\"string\",\"sender\":\"0123456789\",\"receiver\":\"0123456789\"}"
+  -d "{\"body\":\"string\",\"sender\":\"0000000000\",\"receiver\":\"0123456789\"}"
 ```
 
 5. Check you logs
 
     ```bash
         ...
-        2021-12-31 18:11:21.357  INFO 73107 --- [nio-9000-exec-1] c.p.s.Producer                           : #~#: Producing action -> Action(id=acc55adf, sms=Sms(body=string, sender=0123456789, receiver=0123456789, timestamp=2021-12-31T18:11:21.355), created=2021-12-31T18:11:21.356, updated=2021-12-31T18:11:21.356, status=CREATED)
+        2021-12-31 18:11:21.357  INFO 73107 --- [nio-9000-exec-1] c.p.s.Producer                           : #~#: Producing (key: 0123456789),  action -> Action(id=acc55adf, sms=Sms(body=string, sender=0000000000, receiver=0123456789, timestamp=2021-12-31T18:11:21.355), created=2021-12-31T18:11:21.356, updated=2021-12-31T18:11:21.356, status=CREATED)
         2021-12-31 18:11:21.368  INFO 73107 --- [nio-9000-exec-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values:
         ...
         2021-12-31 18:11:22.489  INFO 73107 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.7.1
         2021-12-31 18:11:22.489  INFO 73107 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 61dbce85d0d41457
         2021-12-31 18:11:22.489  INFO 73107 --- [nio-9000-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1640967082489
         2021-12-31 18:11:22.504  INFO 73107 --- [ad | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Cluster ID: J4FEAYQsT7WvOE4mqNxvwg
-        2021-12-31 18:11:22.710  INFO 73107 --- [ntainer#0-0-C-1] c.p.s.Consumer                           : #~#: Consumed action -> Action(id=acc55adf, sms=Sms(body=string, sender=0123456789, receiver=0123456789, timestamp=2021-12-31T18:11:21), created=2021-12-31T18:11:21, updated=2021-12-31T18:11:21, status=CREATED)
+        2021-12-31 18:11:22.710  INFO 73107 --- [ntainer#0-0-C-1] c.p.s.Consumer                           : #~#: Consumed action -> Action(id=acc55adf, sms=Sms(body=string, sender=0000000000, receiver=0123456789, timestamp=2021-12-31T18:11:21), created=2021-12-31T18:11:21, updated=2021-12-31T18:11:21, status=CREATED)
     ```
 
 ## <a name="sbp">2. Spring Boot Profiles</a>
@@ -352,11 +362,11 @@ which will curry the [Sms](src/main/java/com/pilot/commons/Sms.java) enriched wi
 
 ```java
     public class Action {
-        String id;
-        Sms sms;
-        LocalDateTime created;
-        LocalDateTime updated;
-        String status;
+        private String id;
+        private Sms sms;
+        private LocalDateTime created;
+        private LocalDateTime updated;
+        private String status;
     }
 ```
 
@@ -364,9 +374,9 @@ which will curry the [Sms](src/main/java/com/pilot/commons/Sms.java) enriched wi
 
 ```java 
     public class Sms {
-        String body;
-        String sender;
-        String receiver;
+        private String body;
+        private String sender;
+        private String receiver;
         private LocalDateTime timestamp;
     }
 ```
@@ -381,11 +391,35 @@ which will curry the [Sms](src/main/java/com/pilot/commons/Sms.java) enriched wi
         DELIVERED
     }
 ```
-### 4.4. Web Request and Response bodies  
-The web [SmsRequest](src/main/java/com/pilot/springbootkafkaproducerconsumer/web/SmsRequest.java) when a user will send 
-and web [SmsResponse](src/main/java/com/pilot/springbootkafkaproducerconsumer/web/SmsResponse.java) that will be 
-received are also available from [swagger-ui](http://localhost:9000/swagger-ui.html) as long the server (in producer's 
-profile) is deployed.
+### 4.4. SmsRule Model
+
+```java 
+    public class SmsRule {
+        private String verb;
+        private Boolean allSenders;
+        private String receiver;
+        private LocalDateTime timestamp;
+    }
+```
+### 4.5. Verb Emum
+
+```java 
+    public enum Verb {
+        ALLOW,
+        BLOCK
+    }
+```
+
+### 4.6. Web Request and Response bodies  
+The web [SmsRequest](src/main/java/com/pilot/springbootkafkaproducerconsumer/web/SmsRequest.java), which is triggered 
+when a user sends and web [SmsResponse](src/main/java/com/pilot/springbootkafkaproducerconsumer/web/SmsResponse.java) 
+that will be received are available from [swagger-ui](http://localhost:9000/swagger-ui.html) as long the server 
+(in producer's profile) is deployed.
+For the case SMS rules, the web 
+[SmsRuleRequest](src/main/java/com/pilot/springbootkafkaproducerconsumer/web/SmsRuleRequest.java) is triggered when a
+user sends a rule and web 
+[SmsRuleResponse](src/main/java/com/pilot/springbootkafkaproducerconsumer/web/SmsResponse.java) that will be received
+are also available.
 
 ## 5. OpenAPI Definition
 

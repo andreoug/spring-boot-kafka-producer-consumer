@@ -1,6 +1,6 @@
 # Spring Boot with Kafka for SMS Delivery
 
-This is a pilot repo is utilizing Spring Boot 2.5.6 and Kafka broker for the use case of *SMS Delivery*. 
+This is a pilot repo is utilizing Spring Boot 2.5.8 and Kafka broker for the use case of *SMS Delivery*. 
 
 If you are an action first words later person or you prefer the Prof of Concept before the Analysis, your next stop 
 is going to be section [Getting Started](#gs) in order to make this application run locally on your machine and then 
@@ -74,7 +74,7 @@ Follow the steps on the section about [Working on the Staging Environment](#wots
 | Kafka | Kafka Broker | - | [docker-compose.yml](docker-compose.yml) |
 | mvn | Maven | - | [Dockerfile](Dockerfile) |
 | java | Java | - | [Dockerfile](Dockerfile) |
-| spring-boot | Spring-Boot-Starter-Parent | 2.5.6 | [pom.xml](pom.xml) |
+| spring-boot | Spring-Boot-Starter-Parent | 2.5.8 | [pom.xml](pom.xml) |
 | lib | Spring-Boot-Starter-Web | - | spring-boot |
 | lib | Spring-Kafka | - | spring-boot |
 | lib | Lombok | - | spring-boot |
@@ -92,7 +92,7 @@ Follow the steps on section about [Working on the Development Environment](#wotd
 | Kafka | Kafka Broker | - | [docker-compose.yml](docker-compose.yml) |
 | mvn | Maven | 3.8.1 | env. |
 | java | Java | 1.8.0_292 | env. |
-| spring-boot | Spring-Boot-Starter-Parent | 2.5.6 | [pom.xml](pom.xml) |
+| spring-boot | Spring-Boot-Starter-Parent | 2.5.8 | [pom.xml](pom.xml) |
 | lib | Spring-Boot-Starter-Web | - | spring-boot |
 | lib | Spring-Kafka | - | spring-boot |
 | lib | Lombok | - | spring-boot |

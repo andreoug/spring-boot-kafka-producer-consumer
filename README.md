@@ -20,7 +20,7 @@ sake of completion, in this use case we consume the SMS rule and this is it.
 
 As you will figure out in a future use case of another repo, where these SMS rules are 
 going to be used in KTables format from Kafka Streams Binder to filter the incoming messages to Kafka broker's. 
-[Spring Kafka Steams and Spring Kafka Streams](https://spring.io/blog/2018/04/19/kafka-streams-and-spring-cloud-stream) 
+[Spring Kafka Steams and Spring Cloud Streams](https://spring.io/blog/2018/04/19/kafka-streams-and-spring-cloud-stream) 
 do no belong not in this repo, instead we are working only on [Spring Kafka](https://spring.io/projects/spring-kafka) 
 for the development of Kafka-based messaging solutions in order to only produce and consume objects.   
 
@@ -50,9 +50,9 @@ The key differences between the working environments (dev and staging) are the f
 - The seperated network that is *kafka-net* network defined in [docker-compose.yml](docker-compose.yml)
 
 #### 1.1.1. Prerequisites
-As you can figure out in the following table, the least prerequisites to give a try to this 
-repo are with staging environment. But if you have already java and maven experience, 
-development environment is similarly easy to build and experiment.
+As you can figure out in the following table, the least required prerequisites to give a try to this repo are with 
+staging environment. But if you have already java and maven experience, development environment is similarly easy 
+to build and experiment.
 
 ##### 1.1.1.1. Prerequisites Details
 | Framework | Staging | Development |
@@ -74,11 +74,11 @@ Follow the steps on the section about [Working on the Staging Environment](#wots
 | Kafka | Kafka Broker | - | [docker-compose.yml](docker-compose.yml) |
 | mvn | Maven | - | [Dockerfile](Dockerfile) |
 | java | Java | - | [Dockerfile](Dockerfile) |
+| lib | Lombok | 1.18.22 | spring-boot |
+| lib | Openapi-UI | 1.5.2 | [pom.xml](pom.xml) |
+| lib | Spring-Boot-Starter-Web | 2.5.8 | spring-boot |
+| lib | Spring-Kafka | 2.7.9 | spring-boot |
 | spring-boot | Spring-Boot-Starter-Parent | 2.5.8 | [pom.xml](pom.xml) |
-| lib | Spring-Boot-Starter-Web | - | spring-boot |
-| lib | Spring-Kafka | - | spring-boot |
-| lib | Lombok | - | spring-boot |
-| lib | openapi-ui | 1.5.2 | [pom.xml](pom.xml) |
 
 #### 1.1.3. Development Environment
 Follow the steps on section about [Working on the Development Environment](#wotde).
@@ -92,11 +92,11 @@ Follow the steps on section about [Working on the Development Environment](#wotd
 | Kafka | Kafka Broker | - | [docker-compose.yml](docker-compose.yml) |
 | mvn | Maven | 3.8.1 | env. |
 | java | Java | 1.8.0_292 | env. |
-| spring-boot | Spring-Boot-Starter-Parent | 2.5.8 | [pom.xml](pom.xml) |
-| lib | Spring-Boot-Starter-Web | - | spring-boot |
-| lib | Spring-Kafka | - | spring-boot |
-| lib | Lombok | - | spring-boot |
+| lib | Lombok | 1.18.22 | spring-boot |
 | lib | openapi-ui | 1.5.2 | [pom.xml](pom.xml) |
+| lib | Spring-Boot-Starter-Web | - | spring-boot |
+| lib | Spring-Kafka |  2.7.9 | spring-boot |
+| spring-boot | Spring-Boot-Starter-Parent | 2.5.8 | [pom.xml](pom.xml) |
 
 
 ### <a name="wotse">1.2. Working on the Staging Environment</a>

@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>spring-boot-kafka-producer-consumer</name>
-	<description>Pilot project for Spring Boot with Kafka</description>
+	<description>Pilot project of Spring Boot with Kafka for SMS Delivery</description>
 	<properties>
         <java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,6 +1,6 @@
 # Common HowTo's 
 
-## Build initial spring project from Spring Inializer
+## Build initial spring project from Spring Initializer
 Use bash to get your initial spring project from [start.spring.io]() following the Spring's User Guide for [Command line support](https://docs.spring.io/initializr/docs/0.4.x/reference/html/command-line.html)
 ```bash
   export PROJECT_NAME="spring-boot-kafka-producer-consumer"
@@ -14,7 +14,18 @@ Use bash to get your initial spring project from [start.spring.io]() following t
     -d bootVersion=2.5.6 -o $PROJECT_NAME.zip
 ```
 Or use your browser at [start.spring.io](https://start.spring.io/)
-![spring.intializer](images/spring.intializer.png)
+![spring.initializer](images/spring.initializer.png)
+
+In fact, what is missing from this initial setup and need to be added in pom file is the following dependency for
+swagger lib.
+
+```xml
+        <dependency>
+            <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+```
 
 ##  Check the Dependency Tree
 ```bash
